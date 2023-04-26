@@ -1,0 +1,11 @@
+*** Transient Analysis
+VIN 1 0 pulse (0 5V 0ns 0ns 0ns 100ms 200ms)
+R1 1 2 6K
+C1 2 0 18uF
+.tran 0.2ms 1000ms
+.measure tran trise TRIG V(1) val = 0.5 rise = 1 TARG V(1) val = 4.5 rise = 1
+.control
+run
+plot V(1) V(2)
+.endc
+.end

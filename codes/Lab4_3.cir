@@ -1,0 +1,26 @@
+*** CMOS Inverter
+V1 1 0 DC 5V
+V2 2 0 pulse (0 5 0 0 0 10ms 20ms)
+V3 3 0 DC 0V
+V4 4 0 DC 0V
+V5 5 0 DC 0V
+Vdd 11 0 DC 5V
+.model nmod nmos level = 54 version = 4.7
+.model pmod pmos level = 54 version = 4.7
+M1n 6 1 0 0 nmod w = 1000u l = 10u
+M2n 10 2 6 6 nmod w = 1000u l = 10u
+M3n 10 3 7 7 nmod w = 1000u l = 10u
+M4n 7 4 0 0 nmod w = 1000u l = 10u
+M5n 7 5 0 0 nmod w = 1000u l = 10u
+M1p 8 1 11 11 pmod w = 1000u l = 10u
+M2p 8 2 11 11 pmod w = 1000u l = 10u
+M3p 10 3 8 8 pmod w = 1000u l = 10u
+M4p 10 4 9 9 pmod w = 1000u l = 10u
+M5p 9 5 8 8 pmod w = 1000u l = 10u
+.tran 0.1m 100ms
+.control
+run
+plot V(3) V(2) V(1) V(10) xlabel 'Time' ylabel 'Output' title 'CMOS Inverter'
+plot V(10) xlabel 'Time' ylabel 'Output' title 'Y = AB + C(D+E) ''
+.endc
+.end

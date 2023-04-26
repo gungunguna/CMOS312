@@ -1,0 +1,10 @@
+*** AC Analysis
+VIN 1 0 dc 0 ac 5
+R1 1 2 6K
+C1 2 0 18uF
+.ac dec 10 1 10K
+.control
+run
+plot V(1) V(2) xlog
+.endc
+.end

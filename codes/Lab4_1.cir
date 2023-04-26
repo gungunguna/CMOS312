@@ -1,0 +1,20 @@
+*** CMOS Inverter
+V1 1 0 pulse (0 5 0 0 0 10ms 20ms)
+V2 2 0 DC 5V
+V3 3 0 DC 0V
+Vdd 7 0 DC 5V
+.model nmod nmos level = 54 version = 4.7
+.model pmod pmos level = 54 version = 4.7
+M1n 4 1 0 0 nmod w = 1000u l = 10u
+M2n 5 2 4 4 nmod w = 1000u l = 10u
+M3n 6 3 5 5 nmod w = 1000u l = 10u
+M1p 6 1 7 7 pmod w = 1000u l = 10u
+M2p 6 2 7 7 pmod w = 1000u l = 10u
+M3p 6 3 7 7 pmod w = 1000u l = 10u
+.tran 0.1m 100ms
+.control
+run
+plot V(3) V(2) V(1) V(6) xlabel 'Time' ylabel 'Output' title 'CMOS Inverter'
+plot V(6) xlabel 'Time' ylabel 'Output' title '3-input NAND Gate'
+.endc
+.end
