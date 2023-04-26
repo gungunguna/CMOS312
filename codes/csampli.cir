@@ -1,0 +1,16 @@
+* CMOS Inverter
+Vin 2 0 sin(0.75 0.2 50 0 0 0)
+Vb 1 0 DC 0.6V
+Vdd 4 0 DC 2V
+.model nmod nmos level = 54 version = 4.7
+.model pmod pmos level = 54 version = 4.7
+M1n 3 1 0 0 nmod w = 5u l = 0.1u
+M2n 5 2 0 0 nmod w = 5u l = 0.1u
+M1p 3 3 4 4 pmod w = 5u l = 0.1u
+M2p 5 3 4 4 pmod w = 5u l = 0.1u
+.tran 0.1m 100ms
+.control
+run
+plot V(2) V(5) xlabel 'Time' ylabel 'Output' title 'Common Source Amplifier'
+.endc
+.end

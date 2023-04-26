@@ -1,0 +1,39 @@
+***Pass Transistor Y = (AB + C) . D
+.subckt pass_and 1 2 3 4
+M1 2 3 4 4 nmod w = 1000u l = 10u
+M2 1 2 4 4 nmod w = 1000u l = 10u
+.model nmod nmos level = 54 version = 4.7
+.ends
+
+.subckt pass_or 1 2 3 4
+M1 2 2 4 4 nmod w = 1000u l = 10u
+M2 1 3 4 4 nmod w = 1000u l = 10u
+.model nmod nmos level = 54 version = 4.7
+.ends
+
+.subckt inverter 1 2 3
+M1 3 1 2 2 pmod w = 1000u l = 10u
+M2 3 1 0 0 nmod w = 1000u l = 10u
+.model nmod nmos level = 54 version = 4.7
+.model pmod pmos level = 54 version = 4.7
+.ends
+
+Va 11 0 DC 5V
+Vb 12 0 DC 5V
+Vc 13 0 DC 5V
+Vd 14 0 pulse (0 5 0 0 0 80ms 160ms)
+Vdd 2 0 DC 5V
+Xb 12 2 15 inverter
+Xc 13 2 17 inverter
+Xd 14 2 19 inverter
+
+Xa_and_b 11 12 15 16 pass_and
+Xab_or_c 16 13 17 18 pass_or
+Xab+c_and_d 18 14 19 20 pass_and
+
+.tran 0.1ms 500ms
+.control
+run
+plot V(20) title 'Y = (AB + C) . D' xlabel 'Time' ylabel 'Output'
+.endc
+.end
